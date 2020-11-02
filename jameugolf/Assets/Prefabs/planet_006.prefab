@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3277266427160061647}
   - component: {fileID: 765549514724512261}
   m_Layer: 0
-  m_Name: planet_tuto_006
+  m_Name: planet_006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 670224309865224971, guid: 77d61393c8efcf2488a67db9e4eaf340, type: 3}
+  - {fileID: 2100000, guid: 9dcabe5b211ba3c4d812815956bb137b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

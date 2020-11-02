@@ -49,6 +49,6 @@ Material:
     - _StaticHighLights: 0
     - __dirty: 0
     m_Colors:
-    - _BaseTint: {r: 0.3445621, g: 0.8207547, b: 0.670687, a: 0}
+    - _BaseTint: {r: 0.745283, g: 0.7417675, b: 0.7417675, a: 0}
     - _HighlightTint: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 0}
