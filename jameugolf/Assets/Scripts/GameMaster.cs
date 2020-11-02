@@ -1,0 +1,199 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameMaster : MonoBehaviour
+{
+
+
+	public Transform[] Levels;
+	public int CurrentLevel = 0;
+
+	public Transform Ball;
+	BallScript _ballScript;
+
+	[SerializeField] Transform _powerJauge;
+	Vector3 _baseJaugePosition;
+	public AnimationCurve Curve;
+
+	public Vector3 _gravityDirection;
+	public Vector3 _gravityPerpendicular;
+	float _gravityIntensity;
+	bool _canUpdateGravity;
+
+	public float Power;
+	public Vector2 DirectionAim;
+	Vector3 Direction;
+
+	public bool _inputMode;
+	bool _buttonPressed;
+	bool _ballPowerLaunched;
+
+	public KeyCode[] Numpads;
+
+	[Header("BallPower")]
+	float _interpolator;
+	public float TimeLerp;
+	float _currentValue;
+	bool _positiveCharge = true;
+
+	private void Start()
+	{
+		_baseJaugePosition = _powerJauge.position;
+
+		ResetInputs();
+		SetLevel();
+	}
+
+	private void Update()
+	{
+		if (_inputMode)
+			Inputs();
+	}
+
+	private void FixedUpdate()
+	{
+		if (_canUpdateGravity)
+			UpdateGravity();
+	}
+
+	void Inputs()
+	{
+		bool pressed = false;
+		foreach(KeyCode key in Numpads)
+		{
+			if(Input.GetKey(key))
+			{
+				pressed = true;
+				DirectionAim = SetDirection(key);
+			}
+		}
+		if (!pressed)
+			_buttonPressed = false;
+		else
+			_buttonPressed = true;
+
+
+		if (_buttonPressed)
+			BallPower();
+		if (!_buttonPressed && _ballPowerLaunched)
+			Launch();
+
+	}
+
+	void BallPower()
+	{
+		_ballPowerLaunched = true;
+
+		if (_positiveCharge)
+			_currentValue = Mathf.Lerp(0, 1, _interpolator);
+		else
+			_currentValue = Mathf.Lerp(1, 0, _interpolator);
+
+
+		_interpolator += Time.deltaTime / TimeLerp;
+		if(_interpolator >= 1)
+		{
+			_interpolator = 0;
+			_positiveCharge = !_positiveCharge;
+		}
+
+		_powerJauge.position = _baseJaugePosition + (Vector3.up * _currentValue * 10/2);
+		_powerJauge.localScale = new Vector3(_powerJauge.localScale.x, (10 * _currentValue),_powerJauge.localScale.z);
+
+	}
+
+	void ResetInputs()
+	{
+		_inputMode = true;
+		_positiveCharge = true;
+		_buttonPressed = false;
+		_ballPowerLaunched = false;
+		_interpolator = 0;
+		Power = 0;
+		_canUpdateGravity = false;
+	}
+
+	void SetLevel()
+	{
+		LevelData levelData = Levels[CurrentLevel].gameObject.GetComponent<LevelData>();
+		Ball.position = levelData.BallPlacement.position;
+		_gravityIntensity = levelData.GravityPower;
+
+		_canUpdateGravity = true;
+	}
+
+	void UpdateGravity()
+	{
+		_gravityDirection = (Levels[CurrentLevel].position - Ball.position).normalized;
+		_gravityPerpendicular = Vector3.Cross(_gravityDirection, Vector3.forward);
+
+		Physics.gravity = _gravityDirection * _gravityIntensity;
+	}
+
+	Vector2 SetDirection(KeyCode key)
+	{
+		if(key == KeyCode.Keypad2)
+		{
+			return Vector2.down;
+		}
+		if (key == KeyCode.Keypad1)
+		{
+			return new Vector2(-1,-1);
+		}
+		if (key == KeyCode.Keypad3)
+		{
+			return new Vector2(1, -1);
+		}
+		if (key == KeyCode.Keypad4)
+		{
+			return Vector2.left;
+		}
+		if (key == KeyCode.Keypad6)
+		{
+			return Vector2.right;
+		}
+		if (key == KeyCode.Keypad7)
+		{
+			return new Vector2(-1,1);
+		}
+		if (key == KeyCode.Keypad8)
+		{
+			return Vector2.up;
+		}
+		if (key == KeyCode.Keypad9)
+		{
+			return Vector2.one;
+		}
+
+		return Vector2.zero;
+	}
+
+	void Launch()
+	{
+		Power = Curve.Evaluate(_currentValue) * 100;
+		Direction = new Vector3(DirectionAim.x, 1, DirectionAim.y); //marche Po;
+
+		Direction = Vector3.Cross(Direction, _gravityPerpendicular);
+		Direction += Ball.position;
+
+		Debug.Log("tir");
+		Debug.Log(Direction + " | " + Power);
+
+		_ballScript = Ball.transform.gameObject.GetComponent<BallScript>();
+		_ballScript.BallLaunch(Direction,Power);
+
+		ResetInputs();
+	}
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.DrawLine(Ball.position, _gravityDirection);
+		Gizmos.color = Color.red;
+		Gizmos.DrawLine(Levels[CurrentLevel].position, _gravityPerpendicular);
+		Gizmos.color = Color.green;
+		Gizmos.DrawLine(Ball.position, Direction);
+
+	}
+
+}
