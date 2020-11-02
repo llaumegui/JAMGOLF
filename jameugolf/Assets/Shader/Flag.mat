@@ -59,6 +59,6 @@ Material:
     - _VertexDisplacement: 0.123
     - __dirty: 0
     m_Colors:
-    - _BaseTint: {r: 1, g: 1, b: 1, a: 0}
+    - _BaseTint: {r: 2, g: 2, b: 2, a: 0}
     - _HighlightTint: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 0}
