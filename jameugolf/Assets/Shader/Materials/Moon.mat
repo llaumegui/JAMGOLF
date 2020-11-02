@@ -40,15 +40,15 @@ Material:
     - _BaseCellSharpness: 0.01
     - _HighlightCellOffset: -0.95
     - _HighlightCellSharpness: 0.01
-    - _IndirectDiffuseContribution: 1
+    - _IndirectDiffuseContribution: 0.624
     - _IndirectSpecularContribution: 1
     - _NormalScale: 1
     - _RimOffset: 0.6
-    - _RimPower: 0.4
-    - _ShadowContribution: 0.5
+    - _RimPower: 0.623
+    - _ShadowContribution: 0.631
     - _StaticHighLights: 0
     - __dirty: 0
     m_Colors:
     - _BaseTint: {r: 1, g: 1, b: 1, a: 0}
     - _HighlightTint: {r: 1, g: 1, b: 1, a: 1}
-    - _RimColor: {r: 1, g: 1, b: 1, a: 0}
+    - _RimColor: {r: 15.999998, g: 15.999998, b: 15.999998, a: 0}
