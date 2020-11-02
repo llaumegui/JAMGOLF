@@ -19,6 +19,22 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BaseColorRGBOutlineWidthA:
+        m_Texture: {fileID: 2800000, guid: ecdf8ef1ffff7ab4391737af04897499, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Highlight:
+        m_Texture: {fileID: 2800000, guid: ecdf8ef1ffff7ab4391737af04897499, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture0:
+        m_Texture: {fileID: 2800000, guid: 6fe81fcca49f6e24cbf0dc6d63b60cb7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _WaveTexture:
         m_Texture: {fileID: 2800000, guid: 6fe81fcca49f6e24cbf0dc6d63b60cb7, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -28,5 +44,21 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _BaseCellOffset: 0
+    - _BaseCellSharpness: 0.01
+    - _Float1: 0.38
+    - _HighlightCellOffset: -0.95
+    - _HighlightCellSharpness: 0.01
+    - _IndirectDiffuseContribution: 1
+    - _IndirectSpecularContribution: 1
+    - _NormalScale: 1
+    - _RimOffset: 0.6
+    - _RimPower: 0.4
+    - _ShadowContribution: 0.5
+    - _StaticHighLights: 0
+    - _VertexDisplacement: 0.123
     - __dirty: 0
-    m_Colors: []
+    m_Colors:
+    - _BaseTint: {r: 1, g: 1, b: 1, a: 0}
+    - _HighlightTint: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 0}
