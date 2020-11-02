@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraPlacement : MonoBehaviour
 {
 	GameMaster gameMaster;
+	[SerializeField] Transform emptyFacing;
 
 	bool inputMode;
 
@@ -40,6 +41,6 @@ public class CameraPlacement : MonoBehaviour
 
 	void PlacementLaunchMode()
 	{
-		transform.position = transform.parent.position + (gameMaster._gravityPerpendicular * -DistanceLaunch);
+		transform.position = transform.parent.position + (emptyFacing.up * -DistanceLaunch);
 	}
 }

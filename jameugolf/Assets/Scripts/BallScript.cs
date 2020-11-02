@@ -6,6 +6,10 @@ public class BallScript : MonoBehaviour
 {
 	public GameMaster gameMaster;
 	Rigidbody _rb;
+	[SerializeField] LayerMask _holeMask;
+	[Range(.5f,1)] public float LimitRange;
+
+	bool _cooldown;
 
 	private void Start()
 	{
@@ -14,6 +18,34 @@ public class BallScript : MonoBehaviour
 
 	public void BallLaunch(Vector3 direction, float power)
 	{
-		_rb.AddForce(direction.normalized * power);
+		StartCoroutine(Cooldown());
+		_rb.AddForce(direction * power);
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if(other.gameObject.layer == _holeMask)
+		{
+			gameMaster.Win();
+		}
+	}
+
+	private void Update()
+	{
+		float speed = _rb.velocity.magnitude;
+		Debug.Log("speed " + speed);
+		if(speed <= LimitRange && !gameMaster._inputMode && !_cooldown)
+		{
+			Debug.LogWarning("slt");
+			_rb.velocity = Vector3.zero;
+			gameMaster.ResetInputs();
+		}
+	}
+
+	IEnumerator Cooldown()
+	{
+		_cooldown = true;
+		yield return new WaitForSeconds(.5f);
+		_cooldown = false;
 	}
 }

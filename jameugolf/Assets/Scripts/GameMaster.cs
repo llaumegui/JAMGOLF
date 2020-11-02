@@ -10,6 +10,7 @@ public class GameMaster : MonoBehaviour
 	public int CurrentLevel = 0;
 
 	public Transform Ball;
+	public Transform BallEmptyLookat;
 	BallScript _ballScript;
 
 	[SerializeField] Transform _powerJauge;
@@ -28,18 +29,22 @@ public class GameMaster : MonoBehaviour
 	public bool _inputMode;
 	bool _buttonPressed;
 	bool _ballPowerLaunched;
+	bool _shooted;
 
 	public KeyCode[] Numpads;
 
 	[Header("BallPower")]
-	float _interpolator;
 	public float TimeLerp;
+	float _interpolator;
 	float _currentValue;
 	bool _positiveCharge = true;
+	[Range(0,1)] public float Height;
+	[Range(100,1000)] public float PowerValue;
 
 	private void Start()
 	{
 		_baseJaugePosition = _powerJauge.position;
+		BallEmptyLookat = Ball.transform.GetChild(0);
 
 		ResetInputs();
 		SetLevel();
@@ -66,6 +71,7 @@ public class GameMaster : MonoBehaviour
 			{
 				pressed = true;
 				DirectionAim = SetDirection(key);
+				Debug.Log(DirectionAim);
 			}
 		}
 		if (!pressed)
@@ -103,7 +109,7 @@ public class GameMaster : MonoBehaviour
 
 	}
 
-	void ResetInputs()
+	public void ResetInputs()
 	{
 		_inputMode = true;
 		_positiveCharge = true;
@@ -111,7 +117,7 @@ public class GameMaster : MonoBehaviour
 		_ballPowerLaunched = false;
 		_interpolator = 0;
 		Power = 0;
-		_canUpdateGravity = false;
+		_shooted = false;
 	}
 
 	void SetLevel()
@@ -171,19 +177,23 @@ public class GameMaster : MonoBehaviour
 
 	void Launch()
 	{
-		Power = Curve.Evaluate(_currentValue) * 100;
-		Direction = new Vector3(DirectionAim.x, 1, DirectionAim.y); //marche Po;
+		if(!_shooted)
+		{
+			_shooted = true;
 
-		Direction = Vector3.Cross(Direction, _gravityPerpendicular);
-		Direction += Ball.position;
 
-		Debug.Log("tir");
-		Debug.Log(Direction + " | " + Power);
+			Power = Curve.Evaluate(_currentValue) * PowerValue;
+			Direction = BallEmptyLookat.TransformDirection(DirectionAim.x, DirectionAim.y, -Height);
 
-		_ballScript = Ball.transform.gameObject.GetComponent<BallScript>();
-		_ballScript.BallLaunch(Direction,Power);
 
-		ResetInputs();
+			Debug.Log("tir");
+			Debug.Log(Direction + " | " + Power);
+
+			_ballScript = Ball.transform.gameObject.GetComponent<BallScript>();
+			_ballScript.BallLaunch(Direction, Power);
+
+			_inputMode = false;
+		}
 	}
 
 	private void OnDrawGizmos()
@@ -194,6 +204,11 @@ public class GameMaster : MonoBehaviour
 		Gizmos.color = Color.green;
 		Gizmos.DrawLine(Ball.position, Direction);
 
+	}
+
+	public void Win()
+	{
+		Debug.Log("Congratulations");
 	}
 
 }
