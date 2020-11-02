@@ -37,14 +37,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BaseCellOffset: 0
-    - _BaseCellSharpness: 0.01
+    - _BaseCellSharpness: 0.182
     - _HighlightCellOffset: -0.95
     - _HighlightCellSharpness: 0.01
     - _IndirectDiffuseContribution: 0.624
     - _IndirectSpecularContribution: 1
     - _NormalScale: 1
-    - _RimOffset: 0.6
-    - _RimPower: 0.623
+    - _RimOffset: 0.516
+    - _RimPower: 1
     - _ShadowContribution: 0.631
     - _StaticHighLights: 0
     - __dirty: 0
