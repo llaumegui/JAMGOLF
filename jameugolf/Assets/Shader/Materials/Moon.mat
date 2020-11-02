@@ -45,7 +45,7 @@ Material:
     - _NormalScale: 1
     - _RimOffset: 0.6
     - _RimPower: 0.623
-    - _ShadowContribution: 0.631
+    - _ShadowContribution: 0.411
     - _StaticHighLights: 0
     - __dirty: 0
     m_Colors:

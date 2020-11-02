@@ -54,11 +54,11 @@ Material:
     - _NormalScale: 1
     - _RimOffset: 0.6
     - _RimPower: 0.4
-    - _ShadowContribution: 0.5
+    - _ShadowContribution: 0
     - _StaticHighLights: 0
     - _VertexDisplacement: 0.123
     - __dirty: 0
     m_Colors:
-    - _BaseTint: {r: 2, g: 2, b: 2, a: 0}
+    - _BaseTint: {r: 1.9999998, g: 1.9999998, b: 1.9999998, a: 0}
     - _HighlightTint: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 0}
